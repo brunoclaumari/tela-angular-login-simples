@@ -1,15 +1,18 @@
 import { LoginEntryDTO } from './../../../models/LoginEntryDTO';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NEVER, Observable, first } from 'rxjs';
+import { Observable, first } from 'rxjs';
 import { RetornoToken } from 'src/app/models/RetornoToken';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private readonly BASE_API = '/api';//url API reduzida. O resto está no arquivo de proxy
+  //private readonly BASE_API = '/api';//url API reduzida. O resto está no arquivo de proxy
+  private readonly BASE_API = environment.BASE_URL;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -24,8 +27,11 @@ export class AuthService {
     }
     data.append('grant_type', 'password');
 
-    let clientId = "myclientid";
-    let clientSecret = "myclientsecret";
+    var teste = `Is production? ${environment.production}`;
+    console.info(teste)
+
+    let clientId = environment.CLIENT_ID;//"myclientid";
+    let clientSecret = environment.CLIENT_SECRET;//"myclientsecret";
     let headers = new HttpHeaders();
 
     headers = headers.append("Authorization", "Basic " + btoa(`${clientId}:${clientSecret}`));

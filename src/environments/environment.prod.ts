@@ -1,5 +1,7 @@
+
+
 export const environment = {
-  production:false,
+  production:true,
   API:'/',
   BASE_URL:'',
   CLIENT_ID:'',
