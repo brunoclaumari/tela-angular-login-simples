@@ -1,0 +1,46 @@
+<mat-card class="form__container">
+
+  <mat-card-content >
+    <form [formGroup]="formLogin" class="form__content">
+      <h1>Fazer Login</h1>
+        <mat-form-field appearance="outline" class="field__login" >
+          <mat-label>E-mail</mat-label>
+          <input (change)="printEmail()" matInput placeholder="Digite seu email" formControlName="email">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="formLogin.get('email')?.invalid">{{getErrorMessageEmail()}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="field__login">
+          <mat-label>Senha</mat-label>
+          <input matInput (focus)="focoSenha(true)"
+          type="{{hide ? 'password' : 'text'}}"
+          placeholder="Digite sua senha"  formControlName="password" required>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <!-- <mat-error *ngIf="formLogin.get('password')?.invalid">{{getErrorPassword()}}</mat-error> -->
+          <!-- <mat-hint *ngIf="!passwordInput?.value">Enter your password</mat-hint>
+          getErrorPassword
+
+          <mat-hint
+          [ngStyle]="{'color': aoMenosMinuscula.exec(formLogin.get('password')?.value) === null?'red':'green'}">
+          Pelo menos um caracter minúsculo</mat-hint>
+        -->
+        </mat-form-field>
+        <mat-card-footer class="buttonContainer">
+          <mat-card-actions>
+            <button mat-raised-button class="buttonStyle" color="primary" (click)="loginEntrar()" >ENTRAR</button>
+          </mat-card-actions>
+        </mat-card-footer>
+        <div *ngIf="focoNaSenha" class="errors__container">
+          <mat-error *ngIf="formLogin.get('password')?.invalid">{{getErrorPassword()}}</mat-error>
+          <mat-error *ngIf="aoMenosMinuscula.exec(formLogin.get('password')?.value) === null">* Senha deve ter ao menos uma letra minúscula</mat-error>
+          <mat-error *ngIf="aoMenosumaMaiuscula.exec(formLogin.get('password')?.value) === null">* Senha deve ter ao menos uma letra maiúscula</mat-error>
+          <mat-error *ngIf="aoMenosUmDigito.exec(formLogin.get('password')?.value) === null">* Senha deve ter ao menos um dígito numérico</mat-error>
+          <mat-error *ngIf="aoMenosUmCaracterEspecial.exec(formLogin.get('password')?.value) === null">* Senha Deve ter ao menos um caracter especial</mat-error>
+          <mat-error *ngIf="aoMenos8caracteres.exec(formLogin.get('password')?.value) === null">* Senha deve ter mínimo 8 caracteres</mat-error>
+        </div>
+      </form>
+
+  </mat-card-content>
+
+</mat-card>
+
